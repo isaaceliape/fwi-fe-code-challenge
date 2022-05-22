@@ -35,3 +35,32 @@
 .countryAvatar {
   margin-right: 0.5rem;
 }
+
+.actions {
+  white-space: no-wrap;
+}
+
+.actions__baseButton {
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: variables.$moss;
+  color: variables.$snow;
+  border: 0;
+  padding: 4px 5px;
+  border-radius: 3px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.actions__saveButton {
+  margin-left: 10px;
+}
+
+.actions__editButton {
+  cursor: pointer;
+  background-color: variables.$moss;
+  color: variables.$snow;
+}

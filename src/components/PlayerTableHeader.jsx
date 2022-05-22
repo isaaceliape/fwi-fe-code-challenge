@@ -10,6 +10,7 @@ export default function PlayerTableHeader() {
         <th className={cn(styles.cell, styles.player)}>Player</th>
         <th className={cn(styles.cell, styles.winnings)}>Winnings</th>
         <th className={cn(styles.cell, styles.country)}>Country</th>
+        <th className={cn(styles.cell, styles.actions)}>Actions</th>
       </tr>
     </thead>
   );

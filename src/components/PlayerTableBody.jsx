@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Flag from 'react-world-flags';
 
-import { getPlayers } from '../appState/players';
+import { getPlayers, selectPlayer, deletePlayer } from '../appState/players';
 import Avatar from './Avatar';
 import styles from './PlayerTableBody.module.scss';
 
 export default function PlayerTableBody() {
   const players = useSelector(getPlayers);
+  const dispatch = useDispatch();
 
   return (
     <tbody className={styles.tbody}>
@@ -29,6 +30,20 @@ export default function PlayerTableBody() {
               </Avatar>
               {country}
             </div>
+          </td>
+          <td className={styles.actions}>
+            <button
+              className={`${styles.actions__baseButton} ${styles.actions__editButton}`}
+              onClick={() => dispatch(selectPlayer(id))}
+            >
+              Edit
+            </button>
+            <button
+              className={`${styles.actions__baseButton} ${styles.actions__editButton}`}
+              onClick={() => dispatch(deletePlayer(id))}
+            >
+              Delete
+            </button>
           </td>
         </tr>
       ))}
