@@ -1,15 +1,21 @@
-import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styles from './PlayerModal.module.scss';
+
 import {
-  getPlayerById,
-  updatePlayer,
-  selectPlayer,
+  playerForm,
   createPlayer,
+  updatePlayer,
+  getPlayerById,
+  resetFormMessage,
 } from '../appState/players';
 
 export default function PlayerModal() {
-  const [action, setAction] = useState('update');
   const dispatch = useDispatch();
+
+  const stateMessage = useSelector((state) => state.players.formMessage);
+  const loading = useSelector((state) => state.players.loading);
+  const showForm = useSelector((state) => state.players.showPlayerForm);
+  const formAction = useSelector((state) => state.players.formAction);
   const defaultPlayer = {
     id: '',
     name: '',
@@ -28,72 +34,99 @@ export default function PlayerModal() {
   function onSubmit(e) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target));
-    if (action === 'create') {
+    if (formAction === 'create') {
       data.winnings = Number(data.winnings);
       dispatch(createPlayer(data));
       return;
     }
-    if (action === 'update') {
+    if (formAction === 'update') {
       dispatch(updatePlayer(data));
       return;
     }
   }
 
-  function onClickCreate() {
-    setAction('create');
-    dispatch(selectPlayer(''));
-  }
-
-  function onClickUpdate() {
-    setAction('update');
+  function onClickClose() {
+    console.log('onClickClose');
+    dispatch(playerForm(false));
+    dispatch(resetFormMessage());
   }
 
   return (
-    <div>
-      <h2>Player form</h2>
-      <form action="" onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="">Name: </label>
-          <input type="text" name="name" required defaultValue={player.name} />
-        </div>
-        {action === 'create' && (
-          <div>
-            <div>
-              <label htmlFor="">Winnings: </label>
-              <input
-                type="number"
-                name="winnings"
-                min="0"
-                required
-                inputMode="numeric"
-                pattern="\d*"
-                defaultValue={player.winnings}
-              />
-            </div>
-            <div>
-              <label htmlFor="">Country: </label>
-              <input type="text" name="country" defaultValue={player.country} />
-            </div>
-            <div>
-              <label htmlFor="">imageUrl: </label>
-              <input
-                type="text"
-                name="imageUrl"
-                defaultValue={player.imageUrl}
-              />
-            </div>
+    <div className={styles.container}>
+      {showForm && (
+        <div className={styles.overlay}>
+          <div className={styles.content}>
+            <button className={styles.closeButton} onClick={onClickClose} />
+            <h3 className={styles.title}>Player form</h3>
+            <form action="" onSubmit={onSubmit}>
+              <div className={styles.field}>
+                <label htmlFor="name" className={styles.label}>
+                  Name:{' '}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  defaultValue={player.name}
+                />
+              </div>
+              {formAction === 'create' && (
+                <div>
+                  <div className={styles.field}>
+                    <label htmlFor="winnings" className={styles.label}>
+                      Winnings:{' '}
+                    </label>
+                    <input
+                      type="number"
+                      name="winnings"
+                      min="0"
+                      required
+                      inputMode="numeric"
+                      pattern="\d*"
+                      defaultValue={player.winnings}
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="country" className={styles.label}>
+                      Country:{' '}
+                    </label>
+                    <input
+                      type="text"
+                      name="country"
+                      defaultValue={player.country}
+                    />
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="imageUrl" className={styles.label}>
+                      imageUrl:{' '}
+                    </label>
+                    <input
+                      type="text"
+                      name="imageUrl"
+                      defaultValue={player.imageUrl}
+                    />
+                  </div>
+                </div>
+              )}
+              <div className={styles.wrapSubmitButton}>
+                <div
+                  className={`${styles.formMessage} ${
+                    styles[stateMessage.type] ?? ''
+                  }`}
+                >
+                  {stateMessage.message}
+                </div>
+                <button
+                  disabled={loading ? 'disabled' : false}
+                  className={styles.submitButton}
+                >
+                  {loading ? 'Submitting...' : 'Submit'}
+                </button>
+              </div>
+            </form>
           </div>
-        )}
-        <button className="save">Submit</button>
-      </form>
-      <div>
-        <button className="create" onClick={onClickCreate}>
-          Create
-        </button>
-        <button className="create" onClick={onClickUpdate}>
-          Update
-        </button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

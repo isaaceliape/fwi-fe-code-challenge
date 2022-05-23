@@ -1,13 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
 import Flag from 'react-world-flags';
 
-import { getPlayers, selectPlayer, deletePlayer } from '../appState/players';
+import {
+  getPlayers,
+  selectPlayer,
+  playerForm,
+  deletePlayer,
+  formAction,
+} from '../appState/players';
 import Avatar from './Avatar';
 import styles from './PlayerTableBody.module.scss';
 
 export default function PlayerTableBody() {
   const players = useSelector(getPlayers);
   const dispatch = useDispatch();
+
+  function onClickEdit(id) {
+    console.log('onClickEdit', id);
+    dispatch(formAction('update'));
+    dispatch(playerForm(true));
+    dispatch(selectPlayer(id));
+  }
 
   return (
     <tbody className={styles.tbody}>
@@ -18,7 +31,7 @@ export default function PlayerTableBody() {
           </td>
           <td>{name}</td>
           <td className={styles.winnings}>
-            {winnings.toLocaleString('en-US', {
+            {winnings?.toLocaleString('en-US', {
               style: 'currency',
               currency: 'USD',
             })}
@@ -34,7 +47,7 @@ export default function PlayerTableBody() {
           <td className={styles.actions}>
             <button
               className={`${styles.actions__baseButton} ${styles.actions__editButton}`}
-              onClick={() => dispatch(selectPlayer(id))}
+              onClick={() => onClickEdit(id)}
             >
               Edit
             </button>

@@ -1,0 +1,104 @@
+@use '../variables';
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0000007d;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.title {
+  margin: 0 0 10px 0;
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.closeButton {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: 0;
+  border-radius: 3px;
+  opacity: 0.7;
+  background-color: variables.$palisade;
+  color: variables.$snow;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+  &::after {
+    content: 'X';
+  }
+}
+
+.wrapSubmitButton {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.label {
+  width: 90px;
+  display: inline-block;
+}
+
+.field {
+  margin-bottom: 5px;
+}
+
+.formMessage {
+  font-size: 12px;
+  font-weight: 500;
+  padding-right: 10px;
+  max-width: 185px;
+}
+.success {
+  color: variables.$moss;
+}
+
+.error {
+  color: variables.$merlot;
+}
+
+.submitButton {
+  display: flex;
+  cursor: pointer;
+  background-color: variables.$moss;
+  color: variables.$snow;
+  border: 0;
+  padding: 4px 5px;
+  border-radius: 3px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+  &[disabled] {
+    opacity: 0.7;
+    background-color: variables.$metal;
+    cursor: progress;
+  }
+}

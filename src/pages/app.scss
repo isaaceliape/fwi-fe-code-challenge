@@ -17,3 +17,22 @@ body {
 *::after {
   box-sizing: border-box;
 }
+
+button {
+  cursor: pointer;
+  background-color: variables.$moss;
+  color: variables.$snow;
+  border: 0;
+  padding: 4px 5px;
+  border-radius: 3px;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+  &[disabled] {
+    opacity: 0.7;
+    background-color: variables.$metal;
+    cursor: progress;
+  }
+}
