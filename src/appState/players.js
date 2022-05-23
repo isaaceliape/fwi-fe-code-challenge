@@ -127,7 +127,6 @@ const { actions, reducer } = createSlice({
       })
       .addCase(updatePlayer.fulfilled, (state, action) => {
         adapter.setOne(state, action.payload);
-        console.log(action);
         state.formMessage = {
           type: 'success',
           message: 'Player updated with success.',

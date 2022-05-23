@@ -16,7 +16,6 @@ export default function PlayerTableBody() {
   const dispatch = useDispatch();
 
   function onClickEdit(id) {
-    console.log('onClickEdit', id);
     dispatch(formAction('update'));
     dispatch(playerForm(true));
     dispatch(selectPlayer(id));

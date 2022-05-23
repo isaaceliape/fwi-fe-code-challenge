@@ -46,7 +46,6 @@ export default function PlayerModal() {
   }
 
   function onClickClose() {
-    console.log('onClickClose');
     dispatch(playerForm(false));
     dispatch(resetFormMessage());
   }
