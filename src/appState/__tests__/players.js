@@ -20,8 +20,9 @@ describe('reducer', () => {
     const state1 = reducer(undefined, { type: 'INIT' });
     expect(state1).toEqual(PLAYERS_INITIAL_STATE);
 
+    const PLAYERS_PENDING_STATE = { ...PLAYERS_INITIAL_STATE, loading: true };
     const state2 = reducer(state1, fetchAllPlayers.pending('request-id'));
-    expect(state2).toEqual(PLAYERS_INITIAL_STATE);
+    expect(state2).toEqual(PLAYERS_PENDING_STATE);
 
     const payload = {
       size: -1,
@@ -34,6 +35,7 @@ describe('reducer', () => {
       fetchAllPlayers.fulfilled(payload, 'request-id')
     );
     expect(state3).toEqual({
+      ...PLAYERS_INITIAL_STATE,
       ids: ['player-1-id', 'player-2-id'],
       entities: {
         'player-1-id': PLAYER_1,
