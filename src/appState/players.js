@@ -68,6 +68,8 @@ export const PLAYERS_INITIAL_STATE = {
   showPlayerForm: false,
   loading: false,
   formAction: 'create',
+  sortBy: 'name',
+  sortOrder: 'asc',
   messageModal: {
     type: '',
     title: '',
@@ -106,6 +108,16 @@ const { actions, reducer } = createSlice({
     formMessage: {
       reducer: (state, action) => {
         state.formMessage = action.payload;
+      },
+    },
+    sortBy: {
+      reducer: (state, action) => {
+        state.sortBy = action.payload;
+      },
+    },
+    sortOrder: {
+      reducer: (state, action) => {
+        state.sortOrder = action.payload === 'asc' ? 'desc' : 'asc';
       },
     },
     resetFormMessage: {
@@ -168,10 +180,12 @@ const { actions, reducer } = createSlice({
 });
 
 export const {
-  formMessage,
+  sortBy,
+  sortOrder,
   loading,
   formAction,
   playerForm,
+  formMessage,
   selectPlayer,
   messageModal,
   resetFormMessage,

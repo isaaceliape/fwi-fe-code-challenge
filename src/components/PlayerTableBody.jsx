@@ -12,8 +12,22 @@ import Avatar from './Avatar';
 import styles from './PlayerTableBody.module.scss';
 
 export default function PlayerTableBody() {
-  const players = useSelector(getPlayers);
+  let players = useSelector(getPlayers);
   const dispatch = useDispatch();
+  const sortBy = useSelector((state) => state.players.sortBy);
+  const sortOrder = useSelector((state) => state.players.sortOrder);
+
+  if (players.length) {
+    const sortPlayers = (a, b) => {
+      return sortBy === 'winnings'
+        ? a[sortBy] - b[sortBy]
+        : a[sortBy].localeCompare(b[sortBy]);
+    };
+    players = players
+      .sort(sortPlayers)
+      .reduce((prev, curr) => [...prev, curr], []);
+  }
+  if (sortOrder === 'desc') players = players.reverse();
 
   function onClickEdit(id) {
     dispatch(formAction('update'));

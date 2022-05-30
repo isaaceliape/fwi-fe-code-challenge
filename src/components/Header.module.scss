@@ -46,3 +46,22 @@
   margin: 10px;
   opacity: 1;
 }
+
+.sortOrderButton {
+  margin: 0 10px;
+  opacity: 1;
+}
+
+.sortDropdown {
+  opacity: 1;
+  color: variables.$snow;
+  background-color: variables.$moss;
+  border: 0;
+  border-radius: 3px;
+  padding: 3px 3px 3px 4px;
+}
+
+.sortDropdownLabel {
+  color: variables.$snow;
+  margin-right: 5px;
+}
