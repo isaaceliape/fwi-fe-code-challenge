@@ -58,8 +58,8 @@ export const deletePlayer = createAsyncThunk('players/delete', async (guid) => {
     method: 'DELETE',
     headers,
   });
-  const json = await response.json();
-  return json;
+
+  return { guid };
 });
 
 export const PLAYERS_INITIAL_STATE = {
@@ -142,7 +142,7 @@ const { actions, reducer } = createSlice({
         state.loading = false;
       })
       .addCase(deletePlayer.fulfilled, (state, action) => {
-        adapter.removeOne(state, action.payload);
+        adapter.removeOne(state, action.payload.guid);
         state.formMessage = {
           type: 'success',
           message: 'Player deleted with success.',
